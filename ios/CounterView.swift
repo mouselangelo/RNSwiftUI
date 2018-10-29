@@ -10,7 +10,7 @@ import UIKit
 
 class CounterView: UIView {
   
-  var count = 0 {
+  private var count = 0 {
     didSet {
       button.setTitle(String(describing: count), for: .normal)
     }
@@ -38,5 +38,9 @@ class CounterView: UIView {
   @objc
   func increment() {
     count += 1
+  }
+  
+  @objc func setCount(_ value: NSNumber) {
+    count = value.intValue
   }
 }

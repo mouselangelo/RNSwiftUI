@@ -35,7 +35,9 @@ export default class App extends Component {
           onPress={this.increment}>
           <Text style={styles.button}>{this.state.count}</Text>
         </TouchableOpacity>
-        <CounterView style={styles.wrapper} />
+        <CounterView style={styles.wrapper}
+          count={3}
+        />
       </View>
     );
   }
