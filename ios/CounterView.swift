@@ -16,6 +16,8 @@ class CounterView: UIView {
     }
   }
   
+  @objc var onUpdate: RCTDirectEventBlock?
+  
   override init(frame: CGRect) {
     super.init(frame: frame)
     addSubview(button)
@@ -32,6 +34,12 @@ class CounterView: UIView {
     b.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     b.setTitleColor(UIColor.orange, for: .normal)
     b.addTarget(self, action: #selector(increment), for: .touchUpInside)
+    
+    let longPressGestureRecognizer
+      = UILongPressGestureRecognizer(target: self,
+                                     action: #selector(onLongPress(_:)))
+    b.addGestureRecognizer(longPressGestureRecognizer)
+    
     return b
   }()
   
@@ -40,7 +48,19 @@ class CounterView: UIView {
     count += 1
   }
   
+  @objc func onLongPress(_ gesture: UILongPressGestureRecognizer) {
+    guard gesture.state == .began,
+      let onUpdate = self.onUpdate else {
+        return
+    }
+    onUpdate(["count": count])
+  }
+  
   @objc func setCount(_ value: NSNumber) {
+    count = value.intValue
+  }
+  
+  @objc func update(value: NSNumber) {
     count = value.intValue
   }
 }
