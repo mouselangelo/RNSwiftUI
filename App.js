@@ -7,8 +7,15 @@
  */
 
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  requireNativeComponent
+} from 'react-native';
 
+const CounterView = requireNativeComponent("CounterView")
 
 export default class App extends Component {
   state = {
@@ -28,6 +35,7 @@ export default class App extends Component {
           onPress={this.increment}>
           <Text style={styles.button}>{this.state.count}</Text>
         </TouchableOpacity>
+        <CounterView style={styles.wrapper} />
       </View>
     );
   }
